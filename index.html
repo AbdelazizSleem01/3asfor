@@ -27,10 +27,16 @@
   <meta name="twitter:description" content="سجل أزواج العصافير، البيض، والفقس، والزغاليل مع المصروفات والمبيعات">
   <meta name="twitter:image" content="https://3asfor.vercel.app/logo.png">
 
-  <!-- Icons -->
+  <!-- Icons & PWA -->
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="shortcut icon" href="logo.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="عصفور">
+  <meta name="application-name" content="عصفور">
+  <meta name="mobile-web-app-capable" content="yes">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3434,9 +3440,154 @@
         font-size: 11.5px;
       }
 
-      .main-view-btn svg {
-        display: none;
-      }
+    /* --- PWA Install Button --- */
+    .btn-pwa-install {
+      background: linear-gradient(135deg, #BE7A38 0%, #D48B3E 100%);
+      color: #FFFFFF !important;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(190, 122, 56, 0.35);
+      animation: pwaPulse 2.5s infinite;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .btn-pwa-install:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(190, 122, 56, 0.5);
+      background: linear-gradient(135deg, #a8682b 0%, #BE7A38 100%);
+    }
+    @keyframes pwaPulse {
+      0%, 100% { box-shadow: 0 4px 14px rgba(190, 122, 56, 0.35); }
+      50% { box-shadow: 0 4px 22px rgba(190, 122, 56, 0.65); }
+    }
+
+    /* --- Split Mutations Styling --- */
+    .split-quick-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 7px;
+    }
+    .split-chip-tag {
+      font-size: 11.5px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: rgba(142, 68, 173, 0.08);
+      color: #6C3483;
+      border: 1px solid rgba(142, 68, 173, 0.24);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+      font-weight: 700;
+    }
+    .split-chip-tag:hover {
+      background: #6C3483;
+      color: #FFFFFF;
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(108, 52, 131, 0.3);
+    }
+    .card-chip.chip-split {
+      background: rgba(142, 68, 173, 0.1);
+      color: #6C3483;
+      border: 1px solid rgba(142, 68, 173, 0.28);
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    /* --- Growth Stages Timeline --- */
+    .chick-growth-box {
+      margin-top: 10px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.85), rgba(242, 239, 226, 0.55));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      box-shadow: 0 1px 4px rgba(38, 47, 29, 0.04);
+    }
+    .growth-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+    }
+    .growth-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .growth-stage-badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2.5px 9px;
+      border-radius: 10px;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+    .growth-bar-wrap {
+      position: relative;
+      width: 100%;
+      height: 9px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .growth-bar-fill {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      background-size: 20px 20px;
+      background-image: linear-gradient(45deg, rgba(255,255,255,0.22) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0.22) 75%, transparent 75%, transparent);
+      animation: growthBarStripes 2s linear infinite;
+    }
+    @keyframes growthBarStripes {
+      0% { background-position: 0 0; }
+      100% { background-position: 20px 0; }
+    }
+    .growth-milestones {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--ink-soft);
+      padding: 0 2px;
+    }
+    .growth-milestones span.active {
+      color: var(--accent);
+      font-weight: 800;
+    }
+    .growth-tip-box {
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: var(--ink);
+      background: rgba(105, 121, 58, 0.08);
+      border-right: 3px solid var(--accent);
+      padding: 6px 9px;
+      border-radius: 4px 8px 8px 4px;
+    }
+    .growth-tip-box b {
+      color: var(--accent);
+    }
+
+    /* --- Promote Chick Button --- */
+    .btn-promote-chick {
+      background: linear-gradient(135deg, #69793A 0%, #4D5C24 100%);
+      color: #FFFFFF !important;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 2px 8px rgba(105, 121, 58, 0.28);
+      transition: all 0.2s ease;
+    }
+    .btn-promote-chick:hover {
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 12px rgba(105, 121, 58, 0.45);
+      background: linear-gradient(135deg, #7A8D43 0%, #58692B 100%);
     }
   </style>
 </head>
@@ -3472,6 +3623,15 @@
         </div>
       </div>
       <div class="header-actions">
+        <button class="btn btn-pwa-install" id="pwaInstallBtn" onclick="BN.installPwa()" style="display:none;" title="تثبيت المنظومة كتطبيق هاتف سريع">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          تثبيت التطبيق 📲
+        </button>
+
         <button class="btn btn-chick" id="addChickBtn">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <path d="M12 5v14M5 12h14" />
@@ -3931,6 +4091,20 @@
                 <input type="hidden" id="f_mutation" value="">
               </div>
             </div>
+          <div class="field" style="margin-top:2px;">
+            <label style="display:flex;align-items:center;justify-content:space-between;">
+              <span>الطفرات المحمولة / سبليت 🧬 <small style="color:var(--ink-soft);font-weight:normal;">(Split Mutations غير الظاهرة بالوراثة)</small></span>
+            </label>
+            <input type="text" id="f_splits" placeholder="مثال: سبليت لوتينو، حامل أزرق، سبليت فالو..">
+            <div class="split-quick-chips" id="pairSplitChips">
+              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت لوتينو">+ لوتينو</span>
+              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت ألبينو">+ ألبينو</span>
+              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت وايت فيس">+ وايت فيس</span>
+              <span class="split-chip-tag" data-target="f_splits" data-val="حامل أزرق">+ أزرق</span>
+              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت سينامون">+ سينامون</span>
+              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت فالو">+ فالو</span>
+              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت رينبو">+ رينبو</span>
+            </div>
           </div>
 
           <div class="row2">
@@ -4142,6 +4316,20 @@
                 <input type="hidden" id="c_mutation" value="">
               </div>
               <div id="c_parent_mutation_hint" style="display:none; margin-top:5px;"></div>
+            </div>
+          <div class="field" style="margin-top:2px;">
+            <label style="display:flex;align-items:center;justify-content:space-between;">
+              <span>الطفرات المحمولة / سبليت 🧬 <small style="color:var(--ink-soft);font-weight:normal;">(Split Mutations)</small></span>
+            </label>
+            <input type="text" id="c_splits" placeholder="مثال: سبليت لوتينو، حامل أزرق، سبليت أوبلاين..">
+            <div class="split-quick-chips" id="chickSplitChips">
+              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت لوتينو">+ لوتينو</span>
+              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت ألبينو">+ ألبينو</span>
+              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت وايت فيس">+ وايت فيس</span>
+              <span class="split-chip-tag" data-target="c_splits" data-val="حامل أزرق">+ أزرق</span>
+              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت سينامون">+ سينامون</span>
+              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت فالو">+ فالو</span>
+              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت أوبلاين">+ أوبلاين</span>
             </div>
           </div>
 
@@ -4816,6 +5004,99 @@
         grid.innerHTML = filtered.map(chickCardHtml).join('');
       }
 
+      function getChickGrowthTimeline(c) {
+        if (!c.hatchDate) {
+          return `
+            <div class="chick-growth-box" style="opacity:0.85;border-style:dashed;">
+              <div class="growth-header">
+                <div class="growth-title-row">
+                  <span>🌱 مراحل النمو:</span>
+                  <span style="font-size:11px;color:var(--ink-soft);">أضف تاريخ الفقس لعرض مراحل النمو والنصائح</span>
+                </div>
+              </div>
+            </div>`;
+        }
+
+        const hatch = new Date(c.hatchDate);
+        const now = new Date();
+        const diffMs = now - hatch;
+        const days = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+
+        let stage = {
+          name: 'حديث الفقس',
+          icon: '🥚',
+          color: '#D48B3E',
+          pct: 18,
+          tip: 'العناية بالأبوين وتوفير وجبة طرية (بيض بالبقسماط). موعد التحجيل/التدبيل بين اليوم 5 و 8.'
+        };
+
+        if (days >= 8 && days <= 20) {
+          stage = {
+            name: 'تدبيس ونمو الريش',
+            icon: '🪶',
+            color: '#2A6F97',
+            pct: 42,
+            tip: 'ظهور ملامح الطفرة والألوان. فحص نظافة بياضة العش وأرجل الزغاليل لمنع تراكم الفضلات.'
+          };
+        } else if (days >= 21 && days <= 35) {
+          stage = {
+            name: 'استكشاف وبداية الفطام',
+            icon: '🌾',
+            color: '#BE7A38',
+            pct: 68,
+            tip: 'الخروج التدريجي من العش. ضع حبوب البانيكام والدخن المستنبت في أرضية القفص لتسهيل التعلم.'
+          };
+        } else if (days >= 36 && days <= 60) {
+          stage = {
+            name: 'فطام كامل واستقلال',
+            icon: '🕊️',
+            color: '#2E7D32',
+            pct: 88,
+            tip: 'أصبح قادراً على الأكل والشرب ذاتياً 100%. اعزل الطائر في سلاكة الشبابيات لتفادي شجار الأبوين.'
+          };
+        } else if (days > 60) {
+          stage = {
+            name: 'طور البلوغ والجاهزية',
+            icon: '👑',
+            color: '#69793A',
+            pct: 100,
+            tip: 'وصل لمرحلة النضج واكتمال القلش الأول. جاهز للترقية إلى جوز إنتاج جديد 🦅 أو العرض للبيع.'
+          };
+        }
+
+        const ageText = days === 0 ? 'اليوم الأول' : `${days} يوم (${fmtAge(c.hatchDate)})`;
+
+        return `
+          <div class="chick-growth-box">
+            <div class="growth-header">
+              <div class="growth-title-row">
+                <span>🌱 النمو:</span>
+                <span class="growth-stage-badge" style="background:${stage.color};">
+                  ${stage.icon} ${stage.name}
+                </span>
+              </div>
+              <span style="font-weight:800;color:var(--accent);font-size:11.5px;">${ageText}</span>
+            </div>
+
+            <div class="growth-bar-wrap" title="${stage.name} — ${stage.pct}%">
+              <div class="growth-bar-fill" style="width:${stage.pct}%;background-color:${stage.color};"></div>
+            </div>
+
+            <div class="growth-milestones">
+              <span class="${days <= 7 ? 'active' : ''}">فقس (1-7)</span>
+              <span class="${days >= 8 && days <= 20 ? 'active' : ''}">تدبيس (8-20)</span>
+              <span class="${days >= 21 && days <= 35 ? 'active' : ''}">فطام (21-35)</span>
+              <span class="${days >= 36 && days <= 60 ? 'active' : ''}">استقلال (36-60)</span>
+              <span class="${days > 60 ? 'active' : ''}">بلوغ (+60)</span>
+            </div>
+
+            <div class="growth-tip-box">
+              <b>💡 إرشاد:</b> ${stage.tip}
+            </div>
+          </div>
+        `;
+      }
+
       function chickCardHtml(c) {
         const hasPhoto = Boolean(c.photo);
         const ageStr = fmtAge(c.hatchDate);
@@ -4851,6 +5132,7 @@
           <div class="card-species-row">
             ${getChickGenderBadge(c.gender)}
             ${c.ring ? `<span class="card-chip" style="color:var(--accent-2);font-weight:700;">🏷️ دبلة: ${escapeHtml(c.ring)}</span>` : ''}
+            ${c.splits ? `<span class="card-chip chip-split">🧬 سبليت: ${escapeHtml(c.splits)}</span>` : ''}
           </div>
         </div>
 
@@ -4863,6 +5145,11 @@
             <span class="info-k">🕊️ النوع والطفرة:</span>
             <span class="info-v">${escapeHtml(c.species || 'غير محدد')}${c.mutation ? ' — ' + escapeHtml(c.mutation) : ''}</span>
           </div>
+          ${c.splits ? `
+          <div class="chick-info-row">
+            <span class="info-k">🧬 سبليت / حامل لـ:</span>
+            <span class="info-v" style="color:#6C3483;font-weight:700;">${escapeHtml(c.splits)}</span>
+          </div>` : ''}
           <div class="chick-info-row">
             <span class="info-k">🎂 تاريخ الفقس:</span>
             <span class="info-v">${fmtDate(c.hatchDate)} ${ageStr ? `<b class="chick-age-tag">(${ageStr})</b>` : ''}</span>
@@ -4874,9 +5161,15 @@
           </div>` : ''}
         </div>
 
-        ${c.notes ? `<div class="card-notes" style="margin-top:6px;font-size:12px;color:var(--ink-soft);background:var(--bg);padding:6px 9px;border-radius:8px;border:1px solid var(--border);">📝 ${escapeHtml(c.notes)}</div>` : ''}
+        ${getChickGrowthTimeline(c)}
+
+        ${c.notes ? `<div class="card-notes" style="margin-top:8px;font-size:12px;color:var(--ink-soft);background:var(--bg);padding:6px 9px;border-radius:8px;border:1px solid var(--border);">📝 ${escapeHtml(c.notes)}</div>` : ''}
 
         <div class="card-actions" style="margin-top:12px;">
+          <button class="btn btn-promote-chick btn-small" onclick="BN.promoteChickToPair('${c.id}')" title="ترقية الزغلول إلى جوز إنتاج جديد مع ربطه بسلالته">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            ترقية لجوز 🦅
+          </button>
           <button class="btn btn-ghost btn-small" onclick="BN.editChick('${c.id}')">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
             تعديل
@@ -4941,10 +5234,11 @@
         const hasFemaleRing = p.femaleRing && p.femaleRing !== 'لا يوجد';
         const hasRings = hasMaleRing || hasFemaleRing;
 
-        // Species & Mutation chips
+        // Species & Mutation & Split chips
         const speciesChips = [];
         if (p.species) speciesChips.push(`<span class="card-chip">🕊️ ${escapeHtml(p.species)}</span>`);
         if (p.mutation) speciesChips.push(`<span class="card-chip">🎨 ${escapeHtml(p.mutation)}</span>`);
+        if (p.splits) speciesChips.push(`<span class="card-chip chip-split">🧬 سبليت: ${escapeHtml(p.splits)}</span>`);
 
         return `
     <div class="card">
@@ -5171,6 +5465,7 @@
             notes: p.notes || '',
             cage: p.cage || '',
             mutation: p.mutation || '',
+            splits: p.splits || '',
             status: p.status || 'ready',
             pairingDate: p.pairing_date || '',
             maleRing: p.male_ring || '',
@@ -5206,6 +5501,7 @@
               pairId: c.pair_id || '',
               species: c.species || '',
               mutation: c.mutation || '',
+              splits: c.splits || '',
               gender: c.gender || 'unknown',
               hatchDate: c.hatch_date || '',
               status: c.status || 'young',
@@ -6273,19 +6569,21 @@
       // ---------- Pair Modal UI & Handling ----------
       const pairOverlay = document.getElementById('pairOverlay');
       const pairForm = document.getElementById('pairForm');
+      let promotedFromChickId = null;
 
       function openPairModal(pair) {
         editingPairId = pair ? pair.id : null;
         pendingPhoto = pair ? (pair.photo || null) : null;
         pendingPhotoFile = null;
         document.getElementById('photoUploadStatus').style.display = 'none';
-        document.getElementById('pairModalTitle').textContent = pair ? 'تعديل بيانات الجوز' : 'إضافة جوز جديد';
+        document.getElementById('pairModalTitle').textContent = pair ? (pair.id ? 'تعديل بيانات الجوز' : 'تأسيس جوز إنتاج جديد (ترقية زغلول 🦅)') : 'إضافة جوز جديد';
 
         // Fill fields
         document.getElementById('f_name').value = pair ? pair.name : '';
         document.getElementById('f_cage').value = pair ? (pair.cage || '') : '';
         document.getElementById('f_species').value = pair ? (pair.species || '') : '';
         document.getElementById('f_mutation').value = pair ? (pair.mutation || '') : '';
+        document.getElementById('f_splits').value = pair ? (pair.splits || '') : '';
         syncAllSmartCombos();
         const statusSelect = document.getElementById('f_status');
         statusSelect.value = pair ? (pair.status || 'ready') : 'ready';
@@ -6314,6 +6612,7 @@
         editingPairId = null;
         pendingPhoto = null;
         pendingPhotoFile = null;
+        promotedFromChickId = null;
       }
 
       function updatePhotoPreview(dataUrl) {
@@ -6440,6 +6739,7 @@
           cage: document.getElementById('f_cage').value.trim(),
           species: document.getElementById('f_species').value.trim(),
           mutation: document.getElementById('f_mutation').value.trim(),
+          splits: document.getElementById('f_splits').value.trim(),
           status: document.getElementById('f_status').value,
           age: document.getElementById('f_age').value.trim(),
           pairingDate: document.getElementById('f_pairingDate').value,
@@ -6457,6 +6757,23 @@
           if (p) Object.assign(p, data);
         } else {
           state.pairs.unshift(Object.assign({ id: currentId, layings: [] }, data));
+        }
+
+        // Automatic Promotion from Chick handling
+        if (promotedFromChickId) {
+          const origChick = (state.chicks || []).find(x => x.id === promotedFromChickId);
+          if (origChick) {
+            origChick.status = 'paired';
+            const promoNote = `تمت ترقيته لجوز إنتاج (${data.name})`;
+            origChick.notes = origChick.notes ? `${origChick.notes} | ${promoNote}` : promoNote;
+            if (supabase && isCloudConnected) {
+              supabase.from('chicks').update({ status: 'paired', notes: origChick.notes }).eq('id', origChick.id).catch(console.error);
+            }
+            renderChicks();
+            renderStats();
+            showToast(`🎉 تم ترقية الزغلول وتأسيس "${data.name}" بنجاح! 🦅`);
+          }
+          promotedFromChickId = null;
         }
 
         saveLocal();
@@ -6615,6 +6932,7 @@
         document.getElementById('c_cage').value = chick ? (chick.cage || '') : '';
         document.getElementById('c_species').value = chick ? (chick.species || '') : '';
         document.getElementById('c_mutation').value = chick ? (chick.mutation || '') : '';
+        document.getElementById('c_splits').value = chick ? (chick.splits || '') : '';
         syncAllSmartCombos();
         updateChickParentMutationHint(chick ? (chick.pairId || '') : '');
 
@@ -6779,6 +7097,7 @@
           cage: document.getElementById('c_cage').value.trim(),
           species: document.getElementById('c_species').value.trim(),
           mutation: document.getElementById('c_mutation').value.trim(),
+          splits: document.getElementById('c_splits').value.trim(),
           gender: document.getElementById('c_gender').value || 'unknown',
           hatchDate: document.getElementById('c_hatchDate').value,
           status: document.getElementById('c_status').value || 'young',
@@ -6863,6 +7182,51 @@
             }
           }
         }
+      };
+
+      BN.promoteChickToPair = function (chickId) {
+        const c = (state.chicks || []).find(x => x.id === chickId);
+        if (!c) return;
+
+        const parentPair = c.pairId ? (state.pairs || []).find(p => p.id === c.pairId) : null;
+        const parentName = parentPair ? parentPair.name : '';
+
+        // Determine ring placement by gender
+        let maleRing = '';
+        let femaleRing = '';
+        if (c.gender === 'female') {
+          femaleRing = c.ring || '';
+        } else {
+          maleRing = c.ring || '';
+        }
+
+        // Keep track of which chick is being promoted
+        promotedFromChickId = c.id;
+
+        // Construct lineage and history notes
+        const pedigreeInfo = `سلالة متوارثة من الزغلول "${c.name}"${parentName ? ' (إنتاج جوز: ' + parentName + ')' : ''}${c.notes ? ' | ملاحظات سابقة: ' + c.notes : ''}`;
+
+        const draftPair = {
+          id: null,
+          name: `جوز ${c.name}`,
+          cage: c.cage || '',
+          species: c.species || '',
+          mutation: c.mutation || '',
+          splits: c.splits || '',
+          status: 'ready',
+          age: fmtAge(c.hatchDate) || 'شاب جاهز',
+          pairingDate: new Date().toISOString().split('T')[0],
+          firstEgg: '',
+          maleRing,
+          femaleRing,
+          source: 'own',
+          price: '',
+          photo: c.photo || null,
+          notes: pedigreeInfo
+        };
+
+        openPairModal(draftPair);
+        showToast(`🦅 تم نقل بيانات "${c.name}" لتجهيز جوز جديد، أكمل البيانات واضغط حفظ!`);
       };
 
       // ---------- Log Modal UI & Handling ----------
@@ -7801,6 +8165,73 @@
           }, 600);
         }, 450);
       }
+
+      // ---------- Split Mutations Quick Chips Handling ----------
+      document.addEventListener('click', (e) => {
+        const chip = e.target.closest('.split-chip-tag');
+        if (!chip) return;
+        const targetId = chip.dataset.target;
+        const val = chip.dataset.val;
+        const input = document.getElementById(targetId);
+        if (!input) return;
+        const cur = input.value.trim();
+        if (!cur) {
+          input.value = val;
+        } else if (!cur.includes(val)) {
+          input.value = cur + '، ' + val;
+        }
+        input.focus();
+      });
+
+      // ---------- PWA (Service Worker & Install Handler) ----------
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('3asfor PWA Service Worker Registered:', reg.scope))
+            .catch(err => console.log('3asfor PWA Service Worker Registration Failed:', err));
+        });
+      }
+
+      let deferredPwaPrompt = null;
+      const pwaBtn = document.getElementById('pwaInstallBtn');
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPwaPrompt = e;
+        if (pwaBtn) pwaBtn.style.display = 'inline-flex';
+      });
+
+      window.addEventListener('appinstalled', () => {
+        deferredPwaPrompt = null;
+        if (pwaBtn) pwaBtn.style.display = 'none';
+        showToast('🎉 تم تثبيت تطبيق عصفور بنجاح على شاشة جهازك!');
+      });
+
+      BN.installPwa = async function () {
+        if (deferredPwaPrompt) {
+          deferredPwaPrompt.prompt();
+          const choice = await deferredPwaPrompt.userChoice;
+          if (choice.outcome === 'accepted') {
+            showToast('جاري تثبيت تطبيق عصفور... 📲');
+          }
+          deferredPwaPrompt = null;
+        } else {
+          const isIos = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+          if (isIos) {
+            alert('لتثبيت تطبيق عصفور على هاتف الآيفون 📱:\n1. اضغط على زر المشاركة (Share ⎋) في شريط المتصفح السفلي.\n2. اختر "إضافة إلى الصفحة الرئيسية (Add to Home Screen)".');
+          } else {
+            alert('لتثبيت تطبيق عصفور:\nاضغط على قائمة خيارات المتصفح (⋮ أو ⋯) في الأعلى، ثم اختر "تثبيت التطبيق" أو "إضافة إلى الشاشة الرئيسية" ليفتح كتطبيق مستقل وسريع!');
+          }
+        }
+      };
+
+      // Show install button after 2 seconds if not in standalone display mode
+      setTimeout(() => {
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+        if (!isStandalone && pwaBtn) {
+          pwaBtn.style.display = 'inline-flex';
+        }
+      }, 2000);
 
       // ---------- Init ----------
       initAllCustomSelects();

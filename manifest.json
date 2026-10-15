@@ -1,0 +1,28 @@
+{
+  "name": "عصفور — سجل متابعة وإدارة مزارع الطيور",
+  "short_name": "عصفور",
+  "description": "المنظومة الاحترافية لإدارة مزارع وطيور الزينة، تتبع الإنتاج، الحسابات الوراثية، ومراحل النمو والسجل المالي",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F2EFE2",
+  "theme_color": "#69793A",
+  "orientation": "portrait",
+  "dir": "rtl",
+  "lang": "ar",
+  "categories": ["productivity", "utilities", "business"],
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
