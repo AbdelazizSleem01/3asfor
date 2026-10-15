@@ -3500,87 +3500,6 @@
       letter-spacing: 0.2px;
     }
 
-    /* --- Growth Stages Timeline --- */
-    .chick-growth-box {
-      margin-top: 10px;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.85), rgba(242, 239, 226, 0.55));
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      box-shadow: 0 1px 4px rgba(38, 47, 29, 0.04);
-    }
-    .growth-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-    }
-    .growth-title-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 700;
-      color: var(--ink);
-    }
-    .growth-stage-badge {
-      font-size: 11px;
-      font-weight: 800;
-      padding: 2.5px 9px;
-      border-radius: 10px;
-      color: #ffffff;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-    }
-    .growth-bar-wrap {
-      position: relative;
-      width: 100%;
-      height: 9px;
-      background: rgba(0, 0, 0, 0.08);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .growth-bar-fill {
-      height: 100%;
-      border-radius: 10px;
-      transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-      background-size: 20px 20px;
-      background-image: linear-gradient(45deg, rgba(255,255,255,0.22) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0.22) 75%, transparent 75%, transparent);
-      animation: growthBarStripes 2s linear infinite;
-    }
-    @keyframes growthBarStripes {
-      0% { background-position: 0 0; }
-      100% { background-position: 20px 0; }
-    }
-    .growth-milestones {
-      display: flex;
-      justify-content: space-between;
-      font-size: 10px;
-      color: var(--ink-soft);
-      padding: 0 2px;
-    }
-    .growth-milestones span.active {
-      color: var(--accent);
-      font-weight: 800;
-    }
-    .growth-tip-box {
-      font-size: 11.5px;
-      line-height: 1.45;
-      color: var(--ink);
-      background: rgba(105, 121, 58, 0.08);
-      border-right: 3px solid var(--accent);
-      padding: 6px 9px;
-      border-radius: 4px 8px 8px 4px;
-    }
-    .growth-tip-box b {
-      color: var(--accent);
-    }
-
     /* --- Promote Chick Button --- */
     .btn-promote-chick {
       background: linear-gradient(135deg, #69793A 0%, #4D5C24 100%);
@@ -5016,99 +4935,6 @@
         grid.innerHTML = filtered.map(chickCardHtml).join('');
       }
 
-      function getChickGrowthTimeline(c) {
-        if (!c.hatchDate) {
-          return `
-            <div class="chick-growth-box" style="opacity:0.85;border-style:dashed;">
-              <div class="growth-header">
-                <div class="growth-title-row">
-                  <span>🌱 مراحل النمو:</span>
-                  <span style="font-size:11px;color:var(--ink-soft);">أضف تاريخ الفقس لعرض مراحل النمو والنصائح</span>
-                </div>
-              </div>
-            </div>`;
-        }
-
-        const hatch = new Date(c.hatchDate);
-        const now = new Date();
-        const diffMs = now - hatch;
-        const days = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
-
-        let stage = {
-          name: 'حديث الفقس',
-          icon: '🥚',
-          color: '#D48B3E',
-          pct: 18,
-          tip: 'العناية بالأبوين وتوفير وجبة طرية (بيض بالبقسماط). موعد التحجيل/التدبيل بين اليوم 5 و 8.'
-        };
-
-        if (days >= 8 && days <= 20) {
-          stage = {
-            name: 'تدبيس ونمو الريش',
-            icon: '🪶',
-            color: '#2A6F97',
-            pct: 42,
-            tip: 'ظهور ملامح الطفرة والألوان. فحص نظافة بياضة العش وأرجل الزغاليل لمنع تراكم الفضلات.'
-          };
-        } else if (days >= 21 && days <= 35) {
-          stage = {
-            name: 'استكشاف وبداية الفطام',
-            icon: '🌾',
-            color: '#BE7A38',
-            pct: 68,
-            tip: 'الخروج التدريجي من العش. ضع حبوب البانيكام والدخن المستنبت في أرضية القفص لتسهيل التعلم.'
-          };
-        } else if (days >= 36 && days <= 60) {
-          stage = {
-            name: 'فطام كامل واستقلال',
-            icon: '🕊️',
-            color: '#2E7D32',
-            pct: 88,
-            tip: 'أصبح قادراً على الأكل والشرب ذاتياً 100%. اعزل الطائر في سلاكة الشبابيات لتفادي شجار الأبوين.'
-          };
-        } else if (days > 60) {
-          stage = {
-            name: 'طور البلوغ والجاهزية',
-            icon: '👑',
-            color: '#69793A',
-            pct: 100,
-            tip: 'وصل لمرحلة النضج واكتمال القلش الأول. جاهز للترقية إلى جوز إنتاج جديد 🦅 أو العرض للبيع.'
-          };
-        }
-
-        const ageText = days === 0 ? 'اليوم الأول' : `${days} يوم (${fmtAge(c.hatchDate)})`;
-
-        return `
-          <div class="chick-growth-box">
-            <div class="growth-header">
-              <div class="growth-title-row">
-                <span>🌱 النمو:</span>
-                <span class="growth-stage-badge" style="background:${stage.color};">
-                  ${stage.icon} ${stage.name}
-                </span>
-              </div>
-              <span style="font-weight:800;color:var(--accent);font-size:11.5px;">${ageText}</span>
-            </div>
-
-            <div class="growth-bar-wrap" title="${stage.name} — ${stage.pct}%">
-              <div class="growth-bar-fill" style="width:${stage.pct}%;background-color:${stage.color};"></div>
-            </div>
-
-            <div class="growth-milestones">
-              <span class="${days <= 7 ? 'active' : ''}">فقس (1-7)</span>
-              <span class="${days >= 8 && days <= 20 ? 'active' : ''}">تدبيس (8-20)</span>
-              <span class="${days >= 21 && days <= 35 ? 'active' : ''}">فطام (21-35)</span>
-              <span class="${days >= 36 && days <= 60 ? 'active' : ''}">استقلال (36-60)</span>
-              <span class="${days > 60 ? 'active' : ''}">بلوغ (+60)</span>
-            </div>
-
-            <div class="growth-tip-box">
-              <b>💡 إرشاد:</b> ${stage.tip}
-            </div>
-          </div>
-        `;
-      }
-
       function chickCardHtml(c) {
         const hasPhoto = Boolean(c.photo);
         const ageStr = fmtAge(c.hatchDate);
@@ -5172,8 +4998,6 @@
             <span class="info-v price-val">${c.price} ج.م</span>
           </div>` : ''}
         </div>
-
-        ${getChickGrowthTimeline(c)}
 
         ${c.notes ? `<div class="card-notes" style="margin-top:8px;font-size:12px;color:var(--ink-soft);background:var(--bg);padding:6px 9px;border-radius:8px;border:1px solid var(--border);">📝 ${escapeHtml(c.notes)}</div>` : ''}
 
