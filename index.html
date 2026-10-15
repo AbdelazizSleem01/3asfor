@@ -1144,6 +1144,22 @@
       overflow: hidden;
     }
 
+    /* Wider, spacious layout for Pairs and Chicks forms */
+    #pairOverlay .modal,
+    #chickOverlay .modal {
+      max-width: 780px;
+    }
+
+    #pairOverlay .modal-body,
+    #chickOverlay .modal-body {
+      padding: 18px 24px;
+    }
+
+    #pairOverlay .row2,
+    #chickOverlay .row2 {
+      gap: 14px;
+    }
+
     @keyframes modalPop {
       from {
         opacity: 0;
@@ -1523,6 +1539,7 @@
         background: #1f2518;
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
       }
+
       :root:not([data-theme="light"]) .alert-item.late {
         background: #271a1a;
       }
@@ -1532,6 +1549,7 @@
       background: #1f2518;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     }
+
     :root[data-theme="dark"] .alert-item.late {
       background: #271a1a;
     }
@@ -1604,6 +1622,7 @@
         color: #FFB74D;
         border-color: rgba(255, 183, 77, 0.35);
       }
+
       :root:not([data-theme="light"]) .alert-badge.late {
         background: rgba(198, 40, 40, 0.25);
         color: #EF9A9A;
@@ -2010,32 +2029,39 @@
       :root:not([data-theme="light"]) .sale-icon {
         color: #81C784 !important;
       }
+
       :root:not([data-theme="light"]) .sale-total-badge {
         color: #81C784 !important;
       }
+
       :root:not([data-theme="light"]) .sale-item .sa {
         color: #81C784;
       }
+
       :root:not([data-theme="light"]) .cat-sale-chicks {
         background: rgba(46, 125, 50, 0.2);
         color: #81C784;
         border-color: rgba(46, 125, 50, 0.35);
       }
+
       :root:not([data-theme="light"]) .cat-sale-young {
         background: rgba(0, 121, 107, 0.2);
         color: #80CBC4;
         border-color: rgba(0, 121, 107, 0.35);
       }
+
       :root:not([data-theme="light"]) .cat-sale-pairs {
         background: rgba(81, 45, 168, 0.2);
         color: #B39DDB;
         border-color: rgba(81, 45, 168, 0.35);
       }
+
       :root:not([data-theme="light"]) .cat-sale-supplies {
         background: rgba(230, 81, 0, 0.2);
         color: #FFB74D;
         border-color: rgba(230, 81, 0, 0.35);
       }
+
       :root:not([data-theme="light"]) .cat-sale-other {
         background: rgba(123, 31, 162, 0.2);
         color: #CE93D8;
@@ -2325,6 +2351,7 @@
         opacity: 0;
         transform: translateY(-5px) scale(0.98);
       }
+
       to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -2336,6 +2363,7 @@
         opacity: 0;
         transform: translateY(5px) scale(0.98);
       }
+
       to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -3008,6 +3036,7 @@
         opacity: 0;
         transform: translateY(6px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -3146,41 +3175,49 @@
         color: #90CAF9;
         border-color: rgba(33, 150, 243, 0.35);
       }
+
       :root:not([data-theme="light"]) .gender-female {
         background: rgba(233, 30, 99, 0.18);
         color: #F48FB1;
         border-color: rgba(233, 30, 99, 0.35);
       }
+
       :root:not([data-theme="light"]) .gender-unknown {
         background: rgba(255, 255, 255, 0.08);
         color: var(--ink-soft);
         border-color: var(--border);
       }
+
       :root:not([data-theme="light"]) .status-young {
         background: rgba(46, 125, 50, 0.2);
         color: #81C784;
         border-color: rgba(46, 125, 50, 0.35);
       }
+
       :root:not([data-theme="light"]) .status-weaned {
         background: rgba(230, 81, 0, 0.2);
         color: #FFB74D;
         border-color: rgba(230, 81, 0, 0.35);
       }
+
       :root:not([data-theme="light"]) .status-sale {
         background: rgba(0, 121, 107, 0.2);
         color: #80CBC4;
         border-color: rgba(0, 121, 107, 0.35);
       }
+
       :root:not([data-theme="light"]) .status-sold {
         background: rgba(81, 45, 168, 0.2);
         color: #B39DDB;
         border-color: rgba(81, 45, 168, 0.35);
       }
+
       :root:not([data-theme="light"]) .status-keeper {
         background: rgba(245, 127, 23, 0.2);
         color: #FFE082;
         border-color: rgba(245, 127, 23, 0.35);
       }
+
       :root:not([data-theme="light"]) .status-paired {
         background: rgba(123, 31, 162, 0.2);
         color: #CE93D8;
@@ -3765,7 +3802,7 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 18V6" />
                   </svg>
-                  المبلغ  (ج.م) *
+                  المبلغ (ج.م) *
                 </label>
                 <div class="input-currency-wrapper">
                   <input type="number" id="s_amount" min="0" step="any" class="form-control" placeholder="0.00"
@@ -3882,13 +3919,15 @@
           <div class="row2">
             <div class="field">
               <label>النوع / الفصيلة</label>
-              <div class="smart-combo-container" id="f_species_combo" data-field="species" data-input-id="f_species" data-placeholder="مثال: بادجي، كوكتيل، روز..">
+              <div class="smart-combo-container" id="f_species_combo" data-field="species" data-input-id="f_species"
+                data-placeholder="مثال: بادجي، كوكتيل، روز..">
                 <input type="hidden" id="f_species" value="">
               </div>
             </div>
             <div class="field">
               <label>الطفرة / اللون</label>
-              <div class="smart-combo-container" id="f_mutation_combo" data-field="mutation" data-input-id="f_mutation" data-species-input="f_species" data-placeholder="مثال: أوبلاين، لوتينو، سبانجل..">
+              <div class="smart-combo-container" id="f_mutation_combo" data-field="mutation" data-input-id="f_mutation"
+                data-species-input="f_species" data-placeholder="مثال: أوبلاين، لوتينو، سبانجل..">
                 <input type="hidden" id="f_mutation" value="">
               </div>
             </div>
@@ -4091,13 +4130,15 @@
           <div class="row2">
             <div class="field">
               <label>النوع / الفصيلة</label>
-              <div class="smart-combo-container" id="c_species_combo" data-field="species" data-input-id="c_species" data-placeholder="مثال: بادجي، كوكتيل..">
+              <div class="smart-combo-container" id="c_species_combo" data-field="species" data-input-id="c_species"
+                data-placeholder="مثال: بادجي، كوكتيل..">
                 <input type="hidden" id="c_species" value="">
               </div>
             </div>
             <div class="field">
               <label>الطفرة / اللون</label>
-              <div class="smart-combo-container" id="c_mutation_combo" data-field="mutation" data-input-id="c_mutation" data-species-input="c_species" data-placeholder="مثال: أوبلاين، لوتينو، وايت فيس..">
+              <div class="smart-combo-container" id="c_mutation_combo" data-field="mutation" data-input-id="c_mutation"
+                data-species-input="c_species" data-placeholder="مثال: أوبلاين، لوتينو، وايت فيس..">
                 <input type="hidden" id="c_mutation" value="">
               </div>
               <div id="c_parent_mutation_hint" style="display:none; margin-top:5px;"></div>
@@ -4141,7 +4182,7 @@
               </select>
             </div>
             <div class="field">
-              <label>سعر الشراء / التكلفة (ج.م) [تُضاف للمصروفات]</label>
+              <label>سعر الشراء / التكلفة (ج.م)</label>
               <input type="number" id="c_price" min="0" placeholder="المبلغ بالجنيه">
             </div>
           </div>
@@ -4200,7 +4241,8 @@
 
           <div class="field">
             <label>ملاحظات عامة</label>
-            <textarea id="c_notes" placeholder="سجل أي تفاصيل إضافية عن صحة الزغلول، الحجم، موعد الفطام، المشتري..."></textarea>
+            <textarea id="c_notes"
+              placeholder="سجل أي تفاصيل إضافية عن صحة الزغلول، الحجم، موعد الفطام، المشتري..."></textarea>
           </div>
         </div>
 
@@ -4333,32 +4375,32 @@
 
             -- جدول الزغاليل والشبابيات المستقلة
             create table if not exists chicks (
-              id text primary key,
-              name text not null,
-              ring text default '',
-              pair_id text default '',
-              species text default '',
-              mutation text default '',
-              gender text default 'unknown',
-              hatch_date text default '',
-              status text default 'young',
-              cage text default '',
-              price text default '',
-              photo text,
-              notes text default '',
-              created_at timestamptz default now()
+            id text primary key,
+            name text not null,
+            ring text default '',
+            pair_id text default '',
+            species text default '',
+            mutation text default '',
+            gender text default 'unknown',
+            hatch_date text default '',
+            status text default 'young',
+            cage text default '',
+            price text default '',
+            photo text,
+            notes text default '',
+            created_at timestamptz default now()
             );
 
             -- جدول سجل المبيعات والإيرادات
             create table if not exists sales (
-              id text primary key,
-              date text not null,
-              amount numeric not null,
-              category text default 'chicks',
-              item text default '',
-              buyer text default '',
-              note text default '',
-              created_at timestamptz default now()
+            id text primary key,
+            date text not null,
+            amount numeric not null,
+            category text default 'chicks',
+            item text default '',
+            buyer text default '',
+            note text default '',
+            created_at timestamptz default now()
             );
 
             -- إتاحة صلاحية رفع الصور إلى Bucket bird-photos
@@ -7246,12 +7288,12 @@
         }).join('');
       }
 
-      BN.editPairFromExpense = function(pairId) {
+      BN.editPairFromExpense = function (pairId) {
         const p = (state.pairs || []).find(x => x.id === pairId);
         if (p) openPairModal(p);
       };
 
-      BN.editChickFromExpense = function(chickId) {
+      BN.editChickFromExpense = function (chickId) {
         const c = (state.chicks || []).find(x => x.id === chickId);
         if (c) openChickModal(c);
       };
