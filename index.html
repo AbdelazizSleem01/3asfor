@@ -1259,19 +1259,21 @@
 
     /* Form Elements */
     .form-section-title {
-      font-size: 13px;
-      font-weight: 700;
+      font-size: 13.5px;
+      font-weight: 800;
       color: var(--accent-2);
-      margin: 14px 0 8px;
-      padding-bottom: 4px;
-      border-bottom: 1px dashed var(--egg-border);
+      margin: 18px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 1.5px dashed var(--egg-border);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
+      width: 100%;
+      clear: both;
     }
 
     .form-section-title:first-child {
-      margin-top: 0;
+      margin-top: 2px;
     }
 
     .field {
@@ -4095,20 +4097,6 @@
                 <input type="hidden" id="f_mutation" value="">
               </div>
             </div>
-          <div class="field" style="margin-top:2px;">
-            <label style="display:flex;align-items:center;justify-content:space-between;">
-              <span>الطفرات المحمولة / سبليت 🧬 <small style="color:var(--ink-soft);font-weight:normal;">(Split Mutations غير الظاهرة بالوراثة)</small></span>
-            </label>
-            <input type="text" id="f_splits" placeholder="مثال: سبليت لوتينو، حامل أزرق، سبليت فالو..">
-            <div class="split-quick-chips" id="pairSplitChips">
-              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت لوتينو">+ لوتينو</span>
-              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت ألبينو">+ ألبينو</span>
-              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت وايت فيس">+ وايت فيس</span>
-              <span class="split-chip-tag" data-target="f_splits" data-val="حامل أزرق">+ أزرق</span>
-              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت سينامون">+ سينامون</span>
-              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت فالو">+ فالو</span>
-              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت رينبو">+ رينبو</span>
-            </div>
           </div>
 
           <div class="row2">
@@ -4125,6 +4113,22 @@
             <div class="field">
               <label>السن التقريبي</label>
               <input type="text" id="f_age" placeholder="مثال: سنة وشهرين">
+            </div>
+          </div>
+
+          <div class="field">
+            <label style="display:flex;align-items:center;justify-content:space-between;">
+              <span>الطفرات المحمولة / سبليت 🧬 <small style="color:var(--ink-soft);font-weight:normal;">(Split Mutations غير الظاهرة بالوراثة)</small></span>
+            </label>
+            <input type="text" id="f_splits" placeholder="مثال: سبليت لوتينو، حامل أزرق، سبليت فالو..">
+            <div class="split-quick-chips" id="pairSplitChips">
+              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت لوتينو">+ لوتينو</span>
+              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت ألبينو">+ ألبينو</span>
+              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت وايت فيس">+ وايت فيس</span>
+              <span class="split-chip-tag" data-target="f_splits" data-val="حامل أزرق">+ أزرق</span>
+              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت سينامون">+ سينامون</span>
+              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت فالو">+ فالو</span>
+              <span class="split-chip-tag" data-target="f_splits" data-val="سبليت رينبو">+ رينبو</span>
             </div>
           </div>
 
@@ -4167,17 +4171,19 @@
             المصدر والتكلفة
           </div>
 
-          <div class="field">
-            <label>مصدر الجوز</label>
-            <div class="source-toggle">
-              <label><input type="radio" name="source" value="bought" checked><span>مشترى</span></label>
-              <label><input type="radio" name="source" value="own"><span>إنتاجنا</span></label>
+          <div class="row2">
+            <div class="field">
+              <label>مصدر الجوز</label>
+              <div class="source-toggle">
+                <label><input type="radio" name="source" value="bought" checked><span>مشترى</span></label>
+                <label><input type="radio" name="source" value="own"><span>إنتاجنا</span></label>
+              </div>
             </div>
-          </div>
 
-          <div class="field" id="priceField">
-            <label>سعر الشراء (ج.م)</label>
-            <input type="number" id="f_price" min="0" placeholder="المبلغ بالجنيه">
+            <div class="field" id="priceField">
+              <label>سعر الشراء (ج.م)</label>
+              <input type="number" id="f_price" min="0" placeholder="المبلغ بالجنيه">
+            </div>
           </div>
 
           <!-- 4. Photo & Notes -->
@@ -4321,20 +4327,6 @@
               </div>
               <div id="c_parent_mutation_hint" style="display:none; margin-top:5px;"></div>
             </div>
-          <div class="field" style="margin-top:2px;">
-            <label style="display:flex;align-items:center;justify-content:space-between;">
-              <span>الطفرات المحمولة / سبليت 🧬 <small style="color:var(--ink-soft);font-weight:normal;">(Split Mutations)</small></span>
-            </label>
-            <input type="text" id="c_splits" placeholder="مثال: سبليت لوتينو، حامل أزرق، سبليت أوبلاين..">
-            <div class="split-quick-chips" id="chickSplitChips">
-              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت لوتينو">+ لوتينو</span>
-              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت ألبينو">+ ألبينو</span>
-              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت وايت فيس">+ وايت فيس</span>
-              <span class="split-chip-tag" data-target="c_splits" data-val="حامل أزرق">+ أزرق</span>
-              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت سينامون">+ سينامون</span>
-              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت فالو">+ فالو</span>
-              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت أوبلاين">+ أوبلاين</span>
-            </div>
           </div>
 
           <div class="row2">
@@ -4349,6 +4341,22 @@
             <div class="field">
               <label>تاريخ الفقس أو الخروج من العش</label>
               <input type="date" id="c_hatchDate">
+            </div>
+          </div>
+
+          <div class="field">
+            <label style="display:flex;align-items:center;justify-content:space-between;">
+              <span>الطفرات المحمولة / سبليت 🧬 <small style="color:var(--ink-soft);font-weight:normal;">(Split Mutations)</small></span>
+            </label>
+            <input type="text" id="c_splits" placeholder="مثال: سبليت لوتينو، حامل أزرق، سبليت أوبلاين..">
+            <div class="split-quick-chips" id="chickSplitChips">
+              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت لوتينو">+ لوتينو</span>
+              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت ألبينو">+ ألبينو</span>
+              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت وايت فيس">+ وايت فيس</span>
+              <span class="split-chip-tag" data-target="c_splits" data-val="حامل أزرق">+ أزرق</span>
+              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت سينامون">+ سينامون</span>
+              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت فالو">+ فالو</span>
+              <span class="split-chip-tag" data-target="c_splits" data-val="سبليت أوبلاين">+ أوبلاين</span>
             </div>
           </div>
 
@@ -6580,7 +6588,7 @@
         pendingPhoto = pair ? (pair.photo || null) : null;
         pendingPhotoFile = null;
         document.getElementById('photoUploadStatus').style.display = 'none';
-        document.getElementById('pairModalTitle').textContent = pair ? (pair.id ? 'تعديل بيانات الجوز' : 'تأسيس جوز إنتاج جديد (ترقية زغلول 🦅)') : 'إضافة جوز جديد';
+        document.getElementById('pairModalTitle').textContent = pair ? (pair.id ? 'تعديل بيانات الجوز' : 'تأسيس جوز إنتاج جديد — ترقية زغلول 🦅') : 'إضافة جوز جديد';
 
         // Fill fields
         document.getElementById('f_name').value = pair ? pair.name : '';
