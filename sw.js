@@ -1,9 +1,12 @@
 // Service Worker for 3asfor PWA
-const CACHE_NAME = '3asfor-cache-v1';
+const CACHE_NAME = '3asfor-cache-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './logo.png',
+  './icon-192.png',
+  './icon-512.png',
+  './icon-maskable.png',
   './manifest.json'
 ];
 
@@ -26,17 +29,11 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Only handle GET requests
   if (event.request.method !== 'GET') return;
 
-  const url = new URL(event.request.url);
-
-  // For same-origin requests or local assets, use Network-First strategy
-  // to ensure users always get the freshest version if online, falling back to cache offline
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
-        // Cache valid response clone
         if (networkResponse && networkResponse.status === 200) {
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
@@ -46,7 +43,6 @@ self.addEventListener('fetch', (event) => {
         return networkResponse;
       })
       .catch(() => {
-        // Offline fallback
         return caches.match(event.request).then((cachedResponse) => {
           if (cachedResponse) {
             return cachedResponse;
