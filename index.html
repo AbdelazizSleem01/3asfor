@@ -1047,7 +1047,13 @@
       display: grid;
       grid-template-columns: 1fr auto auto;
       gap: 6px;
-      margin-top: 2px;
+      margin-top: auto;
+      padding-top: 10px;
+    }
+
+    .card-stats-box + .card-actions {
+      margin-top: 8px;
+      padding-top: 0;
     }
 
     .card-actions .btn {
@@ -3102,6 +3108,24 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 16px;
+      align-items: stretch;
+    }
+
+    .chick-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .chick-card .card-body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .chick-card .card-actions {
+      margin-top: auto;
+      padding-top: 10px;
     }
 
     /* Chick Badges */
@@ -3513,6 +3537,29 @@
       transform: translateY(-1.5px);
       box-shadow: 0 4px 12px rgba(105, 121, 58, 0.45);
       background: linear-gradient(135deg, #7A8D43 0%, #58692B 100%);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .btn-promote-chick {
+        background: var(--accent);
+        color: var(--accent-ink) !important;
+        border-color: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      }
+      :root:not([data-theme="light"]) .btn-promote-chick:hover {
+        background: #A4B86C;
+        color: #151A0E !important;
+      }
+    }
+    :root[data-theme="dark"] .btn-promote-chick {
+      background: var(--accent);
+      color: var(--accent-ink) !important;
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+    :root[data-theme="dark"] .btn-promote-chick:hover {
+      background: #A4B86C;
+      color: #151A0E !important;
     }
   </style>
 </head>
@@ -4999,9 +5046,14 @@
           </div>` : ''}
         </div>
 
-        ${c.notes ? `<div class="card-notes" style="margin-top:8px;font-size:12px;color:var(--ink-soft);background:var(--bg);padding:6px 9px;border-radius:8px;border:1px solid var(--border);">📝 ${escapeHtml(c.notes)}</div>` : ''}
+        ${c.notes ? `
+          <div class="card-notes-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>${escapeHtml(c.notes)}</span>
+          </div>
+        ` : ''}
 
-        <div class="card-actions" style="margin-top:12px;">
+        <div class="card-actions">
           <button class="btn btn-promote-chick btn-small" onclick="BN.promoteChickToPair('${c.id}')" title="ترقية الزغلول إلى جوز إنتاج جديد مع ربطه بسلالته">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             ترقية لجوز 🦅
