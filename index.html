@@ -2408,6 +2408,448 @@
       box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55);
     }
 
+    /* ==========================================================================
+       SMART COMBOBOX (Searchable Select, Categories, Quick Custom Addition)
+       ========================================================================== */
+    .smart-combo-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .smart-combo-container.open {
+      z-index: 100005;
+    }
+
+    .smart-combo-trigger {
+      width: 100%;
+      height: 42px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      padding: 8px 12px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+      text-align: right;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .smart-combo-trigger:hover {
+      border-color: var(--accent);
+    }
+
+    .smart-combo-container.open .smart-combo-trigger {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(105, 121, 58, 0.22);
+    }
+
+    .smart-combo-val {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+      font-size: 13.5px;
+      text-align: right;
+    }
+
+    .smart-combo-val .combo-icon {
+      font-size: 15px;
+      line-height: 1;
+      flex: none;
+    }
+
+    .smart-combo-val .combo-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 700;
+    }
+
+    .smart-combo-val.placeholder {
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+
+    .smart-combo-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: none;
+    }
+
+    .smart-combo-clear {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--egg);
+      color: var(--ink-soft);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-size: 11px;
+      line-height: 1;
+      transition: all .15s ease;
+    }
+
+    .smart-combo-clear:hover {
+      background: var(--danger);
+      color: #ffffff;
+      transform: scale(1.08);
+    }
+
+    .smart-combo-container.has-val .smart-combo-clear {
+      display: inline-flex;
+    }
+
+    .smart-combo-chevron {
+      color: var(--ink-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .smart-combo-chevron svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .smart-combo-container.open .smart-combo-chevron {
+      transform: rotate(180deg);
+      color: var(--accent);
+    }
+
+    /* Dropdown Menu - strictly contained inside parent bounds */
+    .smart-combo-menu {
+      position: absolute;
+      top: calc(100% + 5px);
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-width: 100%;
+      background: var(--bg-elevated);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+      z-index: 100005;
+      display: none;
+      flex-direction: column;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-sizing: border-box;
+      animation: dropdownFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+      max-height: 330px;
+    }
+
+    .smart-combo-container.open .smart-combo-menu {
+      display: flex;
+    }
+
+    .smart-combo-container.dropup .smart-combo-menu {
+      top: auto;
+      bottom: calc(100% + 5px);
+      animation: dropupFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Sticky Search Header */
+    .smart-combo-search-wrap {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-elevated);
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex: none;
+    }
+
+    .smart-combo-search-icon {
+      color: var(--ink-soft);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      flex: none;
+    }
+
+    .smart-combo-search-input {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 13px;
+      background: var(--bg);
+      color: var(--ink);
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+
+    .smart-combo-search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(105, 121, 58, 0.18);
+    }
+
+    /* Context Banner (e.g. Recommendations for Budgies/Cockatiels) */
+    .smart-combo-context-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 6px 10px;
+      background: rgba(105, 121, 58, 0.12);
+      border-bottom: 1px solid var(--border);
+      font-size: 11.5px;
+      color: var(--accent);
+      font-weight: 700;
+      flex: none;
+    }
+
+    .smart-combo-context-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+
+    .smart-combo-context-toggle {
+      background: var(--egg);
+      border: 1px solid var(--egg-border);
+      color: var(--ink);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 2px 7px;
+      border-radius: 5px;
+      white-space: nowrap;
+      transition: all .15s ease;
+    }
+
+    .smart-combo-context-toggle:hover {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    /* Scrollable Options List */
+    .smart-combo-list {
+      max-height: 220px;
+      overflow-y: auto;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .smart-combo-list::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .smart-combo-list::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    /* Category Header */
+    .smart-combo-group-header {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent-2);
+      padding: 7px 8px 3px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      user-select: none;
+    }
+
+    /* Option Item */
+    .smart-combo-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .12s ease, transform .08s ease;
+      user-select: none;
+    }
+
+    .smart-combo-item:hover {
+      background: var(--egg);
+    }
+
+    .smart-combo-item.selected {
+      background: rgba(105, 121, 58, 0.16);
+      font-weight: 700;
+    }
+
+    .smart-combo-item-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .smart-combo-item-emoji {
+      font-size: 15px;
+      line-height: 1;
+      flex: none;
+    }
+
+    .smart-combo-item-texts {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+    }
+
+    .smart-combo-item-title {
+      font-size: 13px;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .smart-combo-item-sub {
+      font-size: 10.5px;
+      color: var(--ink-soft);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .smart-combo-item-check {
+      color: var(--accent);
+      display: none;
+      flex: none;
+    }
+
+    .smart-combo-item.selected .smart-combo-item-check {
+      display: flex;
+    }
+
+    /* Manual Quick-Add Item */
+    .smart-combo-manual-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      background: rgba(190, 122, 56, 0.12);
+      border: 1px dashed var(--accent-2);
+      color: var(--accent-2);
+      font-weight: 700;
+      font-size: 12.5px;
+      transition: background .15s ease, transform .1s ease;
+      margin: 4px;
+    }
+
+    .smart-combo-manual-item:hover {
+      background: rgba(190, 122, 56, 0.22);
+      transform: translateY(-1px);
+    }
+
+    /* Footer with Manual Input Trigger */
+    .smart-combo-footer {
+      padding: 6px 10px;
+      border-top: 1px solid var(--border);
+      background: var(--bg-elevated);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: none;
+    }
+
+    .smart-combo-manual-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px dashed var(--border);
+      border-radius: 7px;
+      padding: 5px 8px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-soft);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all .15s ease;
+    }
+
+    .smart-combo-manual-btn:hover {
+      background: var(--egg);
+      color: var(--ink);
+      border-color: var(--accent);
+    }
+
+    /* Dark theme adjustments */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .smart-combo-menu {
+        background: #1e2417;
+        border-color: #3b442e;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      }
+
+      :root:not([data-theme="light"]) .smart-combo-search-wrap,
+      :root:not([data-theme="light"]) .smart-combo-footer {
+        background: #1e2417;
+        border-color: #333c26;
+      }
+
+      :root:not([data-theme="light"]) .smart-combo-item:hover {
+        background: #2a331e;
+      }
+
+      :root:not([data-theme="light"]) .smart-combo-item.selected {
+        background: rgba(147, 168, 91, 0.22);
+      }
+    }
+
+    :root[data-theme="dark"] .smart-combo-menu {
+      background: #1e2417;
+      border-color: #3b442e;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    :root[data-theme="dark"] .smart-combo-search-wrap,
+    :root[data-theme="dark"] .smart-combo-footer {
+      background: #1e2417;
+      border-color: #333c26;
+    }
+
+    :root[data-theme="dark"] .smart-combo-item:hover {
+      background: #2a331e;
+    }
+
+    :root[data-theme="dark"] .smart-combo-item.selected {
+      background: rgba(147, 168, 91, 0.22);
+    }
+
     /* Currency wrapper */
     .input-currency-wrapper {
       position: relative;
@@ -3436,23 +3878,15 @@
           <div class="row2">
             <div class="field">
               <label>النوع / الفصيلة</label>
-              <input type="text" id="f_species" list="speciesList" placeholder="مثال: بادجي، كوكتيل، روز..">
-              <datalist id="speciesList">
-                <option value="بادجي أسترالي">
-                <option value="بادجي إنجليزي">
-                <option value="كوكتيل">
-                <option value="روز (لوف بيرد)">
-                <option value="فيشر">
-                <option value="كيناري">
-                <option value="زيبرا فينش">
-                <option value="جولديان فينش">
-                <option value="حسون">
-                <option value="درة هندية مطوقة">
-              </datalist>
+              <div class="smart-combo-container" id="f_species_combo" data-field="species" data-input-id="f_species" data-placeholder="مثال: بادجي، كوكتيل، روز..">
+                <input type="hidden" id="f_species" value="">
+              </div>
             </div>
             <div class="field">
               <label>الطفرة / اللون</label>
-              <input type="text" id="f_mutation" placeholder="مثال: أوبلاين، لوتينو، سبانجل..">
+              <div class="smart-combo-container" id="f_mutation_combo" data-field="mutation" data-input-id="f_mutation" data-species-input="f_species" data-placeholder="مثال: أوبلاين، لوتينو، سبانجل..">
+                <input type="hidden" id="f_mutation" value="">
+              </div>
             </div>
           </div>
 
@@ -3653,11 +4087,16 @@
           <div class="row2">
             <div class="field">
               <label>النوع / الفصيلة</label>
-              <input type="text" id="c_species" list="speciesList" placeholder="مثال: بادجي، كوكتيل..">
+              <div class="smart-combo-container" id="c_species_combo" data-field="species" data-input-id="c_species" data-placeholder="مثال: بادجي، كوكتيل..">
+                <input type="hidden" id="c_species" value="">
+              </div>
             </div>
             <div class="field">
               <label>الطفرة / اللون</label>
-              <input type="text" id="c_mutation" placeholder="مثال: أوبلاين، لوتينو، وايت فيس..">
+              <div class="smart-combo-container" id="c_mutation_combo" data-field="mutation" data-input-id="c_mutation" data-species-input="c_species" data-placeholder="مثال: أوبلاين، لوتينو، وايت فيس..">
+                <input type="hidden" id="c_mutation" value="">
+              </div>
+              <div id="c_parent_mutation_hint" style="display:none; margin-top:5px;"></div>
             </div>
           </div>
 
@@ -5095,11 +5534,15 @@
         if (!e.target.closest('.custom-select-box')) {
           closeAllCustomSelects();
         }
+        if (!e.target.closest('.smart-combo-container')) {
+          closeAllSmartCombos();
+        }
       });
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           closeAllCustomSelects();
+          closeAllSmartCombos();
         }
       });
 
@@ -5109,14 +5552,676 @@
             e.target.querySelectorAll('select').forEach(sel => {
               sel.dispatchEvent(new Event('change', { bubbles: true }));
             });
+            syncAllSmartCombos();
           }
         }, 20);
       });
+
+      // ==========================================================================
+      // SMART COMBOBOX ENGINE (Ranked Species, Mutations & Cascading Intelligence)
+      // ==========================================================================
+      function normAr(str) {
+        if (!str) return '';
+        return str.toString().toLowerCase()
+          .replace(/[أإآ]/g, 'ا')
+          .replace(/ة/g, 'ه')
+          .replace(/ى/g, 'ي')
+          .replace(/[\u064B-\u065F]/g, '')
+          .trim();
+      }
+
+      const BIRD_SPECIES_GROUPS = [
+        {
+          group: 'الأكثر شهرة وشعبية',
+          icon: '⭐',
+          items: [
+            { name: 'بادجي أسترالي', sub: 'Budgerigar - الأكثر انتشاراً وسهولة في الإنتاج', emoji: '🦜' },
+            { name: 'كوكتيل (كروان)', sub: 'Cockatiel - طائر أليف ذكي بتاج مميز', emoji: '👑' },
+            { name: 'روز (لوف بيرد)', sub: 'Peach-faced Lovebird - طائر الحب النشيط بدون حلقة عين', emoji: '💖' },
+            { name: 'فيشر (Lovebird)', sub: 'Fischeri Lovebird - طائر الحب بحلقة عين بيضاء', emoji: '👀' },
+            { name: 'بادجي إنجليزي', sub: 'English Budgie - أحجام معارض ضخمة وريش كثيف', emoji: '🏆' },
+            { name: 'بادجي شوشة وهوريكال', sub: 'Crested Budgie - شوشة، كرك، دبل كرك، كيرلي', emoji: '🌪️' }
+          ]
+        },
+        {
+          group: 'عصافير زينة وتغريد',
+          icon: '🕊️',
+          items: [
+            { name: 'كيناري (كنار)', sub: 'Canary - تغريد عذب وألوان وتراكيب بديعة', emoji: '🎵' },
+            { name: 'زيبرا فينش', sub: 'Zebra Finch - عصفور الجنة سريع الإنتاج والحركة', emoji: '🦓' },
+            { name: 'جولديان فينش', sub: 'Gouldian Finch - طائر قوس قزح خيالي الألوان', emoji: '🌈' },
+            { name: 'حسون (الحسون المغرد)', sub: 'European Goldfinch - الحسون البري الأصيل', emoji: '🎶' },
+            { name: 'جاوا فينش (عصفور الأرز)', sub: 'Java Sparrow - طائر هادئ وأنيق جداً', emoji: '🌾' },
+            { name: 'بنغالي فينش', sub: 'Society Finch - الحاضن المثالي للفراخ', emoji: '🐣' }
+          ]
+        },
+        {
+          group: 'ببغاوات متوسطة وكبيرة',
+          icon: '🦜',
+          items: [
+            { name: 'درة هندية مطوقة', sub: 'Indian Ringneck - ببغاء ناطق ذكي بطوق مميز', emoji: '💚' },
+            { name: 'جرين شيك كونيور', sub: 'Green-cheek Conure - لعوب مرح وصوت هادئ', emoji: '🍍' },
+            { name: 'سن كونيور', sub: 'Sun Conure - كونيور الشمس بألوان نارية ذهبية', emoji: '☀️' },
+            { name: 'كويكر (ببغاء الراهب)', sub: 'Quaker Parrot - اجتماعي وبارع في التقليد', emoji: '🥑' },
+            { name: 'كاسكو (رمادي أفريقي)', sub: 'African Grey - أذكى طيور العالم وأعلاها فصاحة', emoji: '🧠' },
+            { name: 'ببغاء أمازوني', sub: 'Amazon Parrot - مرح ومغرد ومتحدث ممتاز', emoji: '🌴' },
+            { name: 'سينغالي (بويسيغالوس)', sub: 'Senegal Parrot - هادئ ومحبب بحجم مدمج', emoji: '✨' }
+          ]
+        },
+        {
+          group: 'طيور أخرى وسلالات',
+          icon: '🪶',
+          items: [
+            { name: 'حمام زينة', sub: 'Fancy Pigeon - كشك، زاجل، كينج، نمساوي، شيرازي..', emoji: '🕊️' },
+            { name: 'سمان (طائر السلوى)', sub: 'Quail - سمان ياباني، فرنسي، جامبو', emoji: '🥚' }
+          ]
+        }
+      ];
+
+      const BIRD_MUTATIONS_BY_SPECIES = {
+        budgie: [
+          {
+            group: 'طفرات البادجي الأكثر شهرة وطلباً',
+            icon: '⭐',
+            items: [
+              { name: 'عادي كلاسيك (Normal)', sub: 'اللون البري الأصلي أخضر أو أزرق بشريط الجناح', emoji: '🟢' },
+              { name: 'أوبلاين (Opaline)', sub: 'امتداد لون الجسم بين الجناحين وخفة التموجات', emoji: '✨' },
+              { name: 'سبانجل سينجل فاكتور (Spangle SF)', sub: 'انعكاس علامات الجناح بإطار داكن مميز', emoji: '🪶' },
+              { name: 'سبانجل دبل فاكتور (Spangle DF)', sub: 'أصفر صافي أو أبيض ناصع صافي بالكامل', emoji: '🌟' },
+              { name: 'لوتينو (Lutino)', sub: 'أصفر ناصع كامل بعين حمراء ياقوتية', emoji: '💛' },
+              { name: 'ألبينو (Albino)', sub: 'أبيض ثلجي كامل بعين حمراء ياقوتية', emoji: '🤍' },
+              { name: 'رينبو (Rainbow)', sub: 'تركيبة خرافية: يلو فيس + أوبلاين + كلير وينج', emoji: '🌈' },
+              { name: 'مصبع / بايد (Pied)', sub: 'بقع بيضاء أو صفراء متبادلة (هولندي / استرالي)', emoji: '🎭' },
+              { name: 'سينامون / قرفة (Cinnamon)', sub: 'علامات جناح بنية دافئة بلون القرفة', emoji: '🤎' }
+            ]
+          },
+          {
+            group: 'طفرات بادجي مميزة ونادرة',
+            icon: '💎',
+            items: [
+              { name: 'تكساس كلير بودي (TCB)', sub: 'Texas Clearbody - جسم فاتح مشرق مع جناح داكن', emoji: '👑' },
+              { name: 'فالو (Fallow)', sub: 'عين حمراء مع ريش ملون وعلامات بنية خفيفة', emoji: '👁️' },
+              { name: 'لاس وينج (Lacewing)', sub: 'جناح دانتيل بني مع جسم أصفر أو أبيض وعين حمراء', emoji: '🕸️' },
+              { name: 'كلير وينج (Clearwing)', sub: 'أجنحة صافية بيضاء أو صفراء بدون خطوط سوداء', emoji: '🪽' },
+              { name: 'جراي وينج (Graywing)', sub: 'أجنحة رمادية وعلامات مخففة 50%', emoji: '🩶' },
+              { name: 'ديلوت (Dilute)', sub: 'لون مخفف جداً للجسم والأجنحة (شبح)', emoji: '🌫️' },
+              { name: 'هوريكال شوشة (Crested)', sub: 'شوشة ريش منتصبة على قمة الرأس', emoji: '🌪️' },
+              { name: 'هوريكال كرك دبل (Double Crest)', sub: 'كرك مزدوج كثيف وريش متناسق', emoji: '🌀' },
+              { name: 'كيرلي / هيلكوبتر (Frill / Helicopter)', sub: 'ريش الأكتاف ملتف دائرياً للأعلى كالمروحة', emoji: '🚁' },
+              { name: 'دارك آيد كلير (DEC)', sub: 'أبيض أو أصفر ناصع صافي بعين سوداء وبدون حلقة', emoji: '⚪' },
+              { name: 'أنثراسايت (Anthracite)', sub: 'رمادي داكن فحمي نادر جداً', emoji: '🖤' }
+            ]
+          },
+          {
+            group: 'درجات ألوان البادجي الأساسية',
+            icon: '🎨',
+            items: [
+              { name: 'سماوي (Sky Blue)', sub: 'أزرق سماوي زاهي فاتح', emoji: '🩵' },
+              { name: 'كحلي كوبالت (Cobalt Blue)', sub: 'أزرق غامق ملكي مشبع', emoji: '💙' },
+              { name: 'موف (Mauve)', sub: 'رمادي مائل للبنفسجي بعاملين ظلمة', emoji: '🟣' },
+              { name: 'بنفسجي (Violet)', sub: 'بنفسجي زاهي متوهج', emoji: '💜' },
+              { name: 'أخضر فاتح (Light Green)', sub: 'الأخضر العشبي الطبيعي الساطع', emoji: '🌱' },
+              { name: 'أخضر زيتوني (Olive Green)', sub: 'أخضر داكن عسكري غني', emoji: '🫒' },
+              { name: 'رمادي (Grey)', sub: 'رمادي دافئ مع بقع خد رمادية', emoji: '🔘' },
+              { name: 'يلو فيس (Yellow Face)', sub: 'وجه أصفر مع جسم أزرق أو تركواز', emoji: '🟡' },
+              { name: 'جولدن فيس (Golden Face)', sub: 'وجه ذهبي ساطع شديد التوهج', emoji: '🔆' }
+            ]
+          }
+        ],
+
+        cockatiel: [
+          {
+            group: 'طفرات الكوكتيل الأكثر انتشاراً',
+            icon: '⭐',
+            items: [
+              { name: 'حبشي / رمادي عادي (Normal Grey)', sub: 'اللون البري الكلاسيكي بتاج أصفر وخد برتقالي', emoji: '🔘' },
+              { name: 'لوتينو (Lutino)', sub: 'أبيض مصفر، رأس أصفر، خدود برتقالية وعيون حمراء', emoji: '💛' },
+              { name: 'إيزابيل / سينامون (Cinnamon)', sub: 'رمادي بني قرفة دافئ مع خدود برتقالية', emoji: '🤎' },
+              { name: 'مصبع / بايد (Pied)', sub: 'بقع عشوائية متداخلة من الأصفر والأبيض والرمادي', emoji: '🎭' },
+              { name: 'بيرل / لؤلؤي (Pearl)', sub: 'ريش الظهر والأجنحة منقط كحبات اللؤلؤ الرائعة', emoji: '🦪' },
+              { name: 'وايت فيس (Whiteface)', sub: 'وجه أبيض ثلجي بالكامل بدون أي صبغة برتقالية', emoji: '🤍' }
+            ]
+          },
+          {
+            group: 'طفرات كوكتيل مميزة ونادرة',
+            icon: '💎',
+            items: [
+              { name: 'ألبينو (Albino)', sub: 'أبيض ناصع بالكامل بدون خدود بعيون حمراء', emoji: '🕊️' },
+              { name: 'وايت فيس بيرل (Whiteface Pearl)', sub: 'لؤلؤي رائع بوجه أبيض بدون برتقالي', emoji: '❄️' },
+              { name: 'وايت فيس مصبع (Whiteface Pied)', sub: 'مصبع أبيض ورمادي ثلجي راقي', emoji: '♟️' },
+              { name: 'سينامون وايت فيس (Cinnamon WF)', sub: 'بني شوكولاتة ناعم مع وجه أبيض ناصع', emoji: '☕' },
+              { name: 'فالو (Fallow)', sub: 'سينامون فاتح دافئ بعيون حمراء ياقوتية', emoji: '👁️' },
+              { name: 'باستيل فيس (Pastel Face)', sub: 'خدود صفراء ليمونية فاتحة بدلاً من البرتقالية', emoji: '🍋' },
+              { name: 'دومينانت سيلفر (Dominant Silver)', sub: 'فضي لامع بتاج أسود وشريط رمادي', emoji: '🥈' },
+              { name: 'كلير بادي (Clearbody)', sub: 'جسم لؤلؤي فاتح مع أطراف أجنحة داكنة', emoji: '✨' },
+              { name: 'إميرالد / زيتوني (Emerald)', sub: 'درجة مميزة مائلة للأخضر الزيتوني الباهت', emoji: '🫒' }
+            ]
+          }
+        ],
+
+        lovebird: [
+          {
+            group: 'طفرات طيور الحب الشائعة',
+            icon: '⭐',
+            items: [
+              { name: 'أخضر كلاسيك (Wild Green)', sub: 'اللون البري الأصلي برأس برتقالي/أحمر وجسم أخضر', emoji: '🟢' },
+              { name: 'لوتينو (Lutino)', sub: 'أصفر ناصع بوجه أحمر وعيون حمراء ياقوتية', emoji: '💛' },
+              { name: 'ألبينو (Albino)', sub: 'أبيض ناصع كامل بدون علامات بعيون حمراء', emoji: '🤍' },
+              { name: 'أوبلاين روز (Opaline)', sub: 'انتشار اللون الأحمر أو البرتقالي على الرأس والأكتاف', emoji: '🔥' },
+              { name: 'أوبلاين أورانج (Orange Face)', sub: 'قناع برتقالي زاهي مع ريش متناسق', emoji: '🍊' },
+              { name: 'أكوا / تركواز (Aqua / Turquoise)', sub: 'درجات الأزرق السماوي المخضر اللامع', emoji: '🩵' },
+              { name: 'ماربل / إيدج (Marbled)', sub: 'ريش محدد الأطراف بتدرج لوني ساحر', emoji: '🪶' }
+            ]
+          },
+          {
+            group: 'طفرات روز وفيشر مميزة ونادرة',
+            icon: '💎',
+            items: [
+              { name: 'باليد (Pallid)', sub: 'أصفر ليموني ناعم باهت بعيون ياقوتية', emoji: '🍋' },
+              { name: 'باربلو (Parblue)', sub: 'الأزرق الجزئي الفاخر (درجات التراكيز العالية)', emoji: '🔷' },
+              { name: 'فايوليت كحلي (Violet)', sub: 'بنفسجي ملكي عميق ساحر', emoji: '💜' },
+              { name: 'موف (Mauve)', sub: 'رمادي مسود مائل للزرقة بعاملين داكنين', emoji: '🌚' },
+              { name: 'سلاطي (Slated)', sub: 'رمادي أردوازي صخري مائل للزرقة', emoji: '🗿' },
+              { name: 'سينامون (Cinnamon)', sub: 'بني قرفة ناعم مع تخفيف الصبغة', emoji: '🤎' },
+              { name: 'ديلوت (Dilute)', sub: 'ألوان مخففة وناعمة جداً للجسم', emoji: '🌫️' },
+              { name: 'بايد مصبع (Pied)', sub: 'تلطيشات بيضاء أو صفراء مميزة على الريش', emoji: '🎭' },
+              { name: 'بلاك ماسك (Masked)', sub: 'وجه أسود قناعي فاحم مع حلقة عين بيضاء', emoji: '🥷' }
+            ]
+          }
+        ],
+
+        canary: [
+          {
+            group: 'أنواع وألوان الكناري الأساسية',
+            icon: '⭐',
+            items: [
+              { name: 'بلدي / حبشي مغرد (Normal)', sub: 'تغريد قوي ومتنوع وألوان متعددة نشيطة', emoji: '🎵' },
+              { name: 'أصفر ليموني كلاسيك (Classic Yellow)', sub: 'اللون الأصفر الساطع المبهج الأكثر طلباً', emoji: '💛' },
+              { name: 'أبيض ناصع (Pure White)', sub: 'ريش أبيض كالثلج (سائد أو متنحي)', emoji: '🤍' },
+              { name: 'جلوستر مقنبر - كورونا (Gloster Corona)', sub: 'حجم مدمج دائري مع شوشة رأس مقنبرة مميزة', emoji: '👑' },
+              { name: 'جلوستر غير مقنبر - كونسورت (Consort)', sub: 'جلوستر برأس ممسوح ناعم وبنية دائرية', emoji: '🐥' }
+            ]
+          },
+          {
+            group: 'طفرات وسلالات الكناري المميزة',
+            icon: '💎',
+            items: [
+              { name: 'موزاييك أحمر (Red Mosaic)', sub: 'أبيض ناصع مع تلطيشات حمراء نارية على القناع والجناح', emoji: '🌹' },
+              { name: 'موزاييك أصفر (Yellow Mosaic)', sub: 'أبيض مع تلطيشات صفراء على قناع الوجه والجناح', emoji: '🌼' },
+              { name: 'أحمر برونزي (Red Factor)', sub: 'كناري أحمر غني متوهج بالكامل', emoji: '🔴' },
+              { name: 'يوركشاير (Yorkshire)', sub: 'حجم ضخم طويل ووقفة عسكرية مهيبة', emoji: '🏆' },
+              { name: 'أوبال (Opal)', sub: 'درجات رمادية فضية أنيقة هادئة', emoji: '🔘' },
+              { name: 'أجات (Agate)', sub: 'خطوط ظهر داكنة رقيقة بدون أي درجات بنية', emoji: '🦓' },
+              { name: 'إيزابيل (Isabel)', sub: 'بيج ناعم مائل للرمادي الفاتح', emoji: '🌾' },
+              { name: 'فايو (Phaeo)', sub: 'نقوش حرشفية بنية دافئة بعيون حمراء', emoji: '👁️' },
+              { name: 'ليزرد (Lizard)', sub: 'نقوش تحاكي حراشف السحلية مع تاج رأس مميز', emoji: '🦎' },
+              { name: 'ساتينيت (Satinette)', sub: 'أفتح وأرقى الطفرات بنقوش رقيقة وعين حمراء', emoji: '✨' }
+            ]
+          }
+        ],
+
+        zebra: [
+          {
+            group: 'طفرات الزيبرا فينش الأساسية',
+            icon: '⭐',
+            items: [
+              { name: 'رمادي عادي كلاسيك (Normal Grey)', sub: 'رمادي بخدود برتقالية للذكر وصدر مخطط وذيل أبيض وأسود', emoji: '🔘' },
+              { name: 'فون / بني (Fawn)', sub: 'تحول اللون الرمادي إلى بني دافئ هادئ', emoji: '🤎' },
+              { name: 'أبيض صافي (Pure White)', sub: 'أبيض ناصع خالي من أي خطوط أو خدود', emoji: '🤍' },
+              { name: 'بلاك فيس (Black Face)', sub: 'انتشار السواد على وجه وصدر الطائر بشكل مذهل', emoji: '🖤' },
+              { name: 'بلاك بريست (Black Breast)', sub: 'صدر أسود عريض مكثف وبقع خد عريضة', emoji: '♟️' },
+              { name: 'بلاك شيك (Black Cheek)', sub: 'خدود سوداء كالفحم بدلاً من البرتقالي للذكر والأنثى', emoji: '🌚' }
+            ]
+          },
+          {
+            group: 'طفرات زيبرا مميزة وأحجام معارض',
+            icon: '💎',
+            items: [
+              { name: 'فلوريدا فانتسي / إيزابيل (Florida Fancy)', sub: 'لون كريمي فاتح مع صدر أبيض وخدود برتقالية', emoji: '🍦' },
+              { name: 'أورانج بريست (Orange Breast)', sub: 'تحول خطوط الصدر السوداء إلى برتقالي زاهي', emoji: '🍊' },
+              { name: 'هاف جامبو (Half Jumbo)', sub: 'حجم متوسط محسّن أكبر من العادي', emoji: '📐' },
+              { name: 'جامبو معارض (Jumbo)', sub: 'حجم ضخم وريش عريض ووقفة مسابقات', emoji: '🏆' },
+              { name: 'باستيل / فضي (Silver / Pastel)', sub: 'رمادي فاتح كالفضة اللامعة', emoji: '🥈' },
+              { name: 'هوريكال كرك (Crested)', sub: 'شوشة ريش منتصبة على الرأس', emoji: '🌪️' }
+            ]
+          }
+        ],
+
+        general: [
+          {
+            group: 'أشهر الطفرات طلباً وشهرة (عامة)',
+            icon: '⭐',
+            items: [
+              { name: 'عادي / حبشي (Normal)', sub: 'اللون البري الأصلي الكلاسيكي', emoji: '🟢' },
+              { name: 'لوتينو (Lutino)', sub: 'أصفر ناصع كامل بعيون حمراء', emoji: '💛' },
+              { name: 'ألبينو (Albino)', sub: 'أبيض ناصع كامل بعيون حمراء', emoji: '🤍' },
+              { name: 'أوبلاين (Opaline)', sub: 'امتداد لون الجسم وخفة التموجات', emoji: '✨' },
+              { name: 'سبانجل (Spangle)', sub: 'انعكاس علامات الجناح بإطار محدد', emoji: '🪶' },
+              { name: 'مصبع / بايد (Pied)', sub: 'بقع وتلطيشات لونية متبادلة', emoji: '🎭' },
+              { name: 'سينامون / قرفة (Cinnamon)', sub: 'علامات بنية كالقرفة بدلاً من الأسود', emoji: '🤎' },
+              { name: 'وايت فيس (Whiteface)', sub: 'وجه أبيض ناصع بدون أي صبغة برتقالية', emoji: '🤍' },
+              { name: 'رينبو (Rainbow)', sub: 'مزيج قوس قزح من الألوان المتدرجة', emoji: '🌈' },
+              { name: 'بيرل / لؤلؤي (Pearl)', sub: 'ريش منقط كحبات اللؤلؤ على الظهر', emoji: '🦪' },
+              { name: 'فالو (Fallow)', sub: 'ألوان فاتحة بعيون حمراء ياقوتية', emoji: '👁️' },
+              { name: 'كلير بادي (Clearbody)', sub: 'جسم فاتح ناصع مع أطراف أجنحة داكنة', emoji: '👑' }
+            ]
+          },
+          {
+            group: 'الألوان والدرجات الأساسية',
+            icon: '🎨',
+            items: [
+              { name: 'أخضر (Green)', sub: 'أخضر عشبي زاهي كلاسيكي', emoji: '🟢' },
+              { name: 'أزرق (Blue)', sub: 'أزرق ملكي أو سماوي صريح', emoji: '🔵' },
+              { name: 'أصفر (Yellow)', sub: 'أصفر ذهبي أو ليموني مشرق', emoji: '🟡' },
+              { name: 'أبيض ناصع (Pure White)', sub: 'أبيض كالثلج خالي من العلامات', emoji: '⚪' },
+              { name: 'رمادي / جري (Grey)', sub: 'رمادي فضي أو داكن', emoji: '🔘' },
+              { name: 'بنفسجي / فايوليت (Violet)', sub: 'بنفسجي ملكي جذاب', emoji: '🟣' },
+              { name: 'زيتوني (Olive)', sub: 'أخضر زيتي غامق مشبع', emoji: '🫒' },
+              { name: 'موف (Mauve)', sub: 'رمادي مزرق داكن فخم', emoji: '🟤' },
+              { name: 'تركواز / أكوا (Turquoise)', sub: 'أزرق سماوي مخضر لامع', emoji: '🩵' }
+            ]
+          }
+        ]
+      };
+
+      function getSpeciesKey(speciesName) {
+        if (!speciesName) return 'general';
+        const s = normAr(speciesName);
+        if (s.includes('بادجي') || s.includes('budgie')) return 'budgie';
+        if (s.includes('كوكتيل') || s.includes('كروان') || s.includes('cockatiel')) return 'cockatiel';
+        if (s.includes('روز') || s.includes('فيشر') || s.includes('حب') || s.includes('lovebird') || s.includes('fischer')) return 'lovebird';
+        if (s.includes('كيناري') || s.includes('كنار') || s.includes('canary')) return 'canary';
+        if (s.includes('زيبرا') || s.includes('zebra')) return 'zebra';
+        return 'general';
+      }
+
+      function closeAllSmartCombos() {
+        document.querySelectorAll('.smart-combo-container.open').forEach(c => {
+          c.classList.remove('open');
+          c.classList.remove('dropup');
+          const tr = c.querySelector('.smart-combo-trigger');
+          if (tr) tr.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      function initSmartCombo(container) {
+        if (!container || container._smartComboInit) return;
+        container._smartComboInit = true;
+
+        const inputId = container.getAttribute('data-input-id');
+        const field = container.getAttribute('data-field'); // 'species' or 'mutation'
+        const placeholder = container.getAttribute('data-placeholder') || 'اختر...';
+        const speciesInputId = container.getAttribute('data-species-input');
+        const input = container.querySelector('input') || document.getElementById(inputId);
+        if (!input) return;
+
+        let showAllMutations = false;
+
+        // Trigger Button
+        const trigger = document.createElement('button');
+        trigger.type = 'button';
+        trigger.className = 'smart-combo-trigger';
+        trigger.setAttribute('aria-haspopup', 'listbox');
+        trigger.setAttribute('aria-expanded', 'false');
+
+        const valSpan = document.createElement('span');
+        valSpan.className = 'smart-combo-val placeholder';
+        valSpan.textContent = placeholder;
+
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'smart-combo-actions';
+
+        const clearBtn = document.createElement('button');
+        clearBtn.type = 'button';
+        clearBtn.className = 'smart-combo-clear';
+        clearBtn.title = 'مسح وتفريغ الحقل';
+        clearBtn.innerHTML = '✕';
+
+        const chevronSpan = document.createElement('span');
+        chevronSpan.className = 'smart-combo-chevron';
+        chevronSpan.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>`;
+
+        actionsDiv.appendChild(clearBtn);
+        actionsDiv.appendChild(chevronSpan);
+        trigger.appendChild(valSpan);
+        trigger.appendChild(actionsDiv);
+
+        // Menu container
+        const menu = document.createElement('div');
+        menu.className = 'smart-combo-menu';
+        menu.setAttribute('role', 'listbox');
+
+        // Sticky Search
+        const searchWrap = document.createElement('div');
+        searchWrap.className = 'smart-combo-search-wrap';
+        searchWrap.innerHTML = `
+          <span class="smart-combo-search-icon">🔍</span>
+          <input type="text" class="smart-combo-search-input" placeholder="ابحث أو اكتب إضافة جديدة..." autocomplete="off">
+        `;
+        const searchInput = searchWrap.querySelector('.smart-combo-search-input');
+
+        // Context Banner (for mutations)
+        const contextBanner = document.createElement('div');
+        contextBanner.className = 'smart-combo-context-banner';
+        contextBanner.style.display = 'none';
+        contextBanner.innerHTML = `
+          <span class="smart-combo-context-title"></span>
+          <button type="button" class="smart-combo-context-toggle">عرض كل الطفرات</button>
+        `;
+        const contextTitle = contextBanner.querySelector('.smart-combo-context-title');
+        const contextToggle = contextBanner.querySelector('.smart-combo-context-toggle');
+
+        contextToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          showAllMutations = !showAllMutations;
+          contextToggle.textContent = showAllMutations ? 'طفرات مقترحة فقط' : 'عرض كل الطفرات';
+          renderList(searchInput.value);
+        });
+
+        // Quick Manual Add item wrap
+        const manualAddWrap = document.createElement('div');
+        manualAddWrap.className = 'smart-combo-manual-add-wrap';
+        manualAddWrap.style.display = 'none';
+
+        // Options List
+        const listEl = document.createElement('div');
+        listEl.className = 'smart-combo-list';
+
+        // Footer with explicit manual button
+        const footer = document.createElement('div');
+        footer.className = 'smart-combo-footer';
+        footer.innerHTML = `
+          <button type="button" class="smart-combo-manual-btn">✏️ كتابة يدوية مخصصة</button>
+        `;
+        const manualBtn = footer.querySelector('.smart-combo-manual-btn');
+
+        menu.appendChild(searchWrap);
+        if (field === 'mutation') {
+          menu.appendChild(contextBanner);
+        }
+        menu.appendChild(manualAddWrap);
+        menu.appendChild(listEl);
+        menu.appendChild(footer);
+
+        container.appendChild(trigger);
+        container.appendChild(menu);
+
+        function syncUI() {
+          const rawVal = input.value ? input.value.trim() : '';
+          if (!rawVal) {
+            valSpan.className = 'smart-combo-val placeholder';
+            valSpan.textContent = placeholder;
+            container.classList.remove('has-val');
+            return;
+          }
+
+          container.classList.add('has-val');
+          valSpan.className = 'smart-combo-val';
+
+          let foundEmoji = field === 'species' ? '🦜' : '🎨';
+          if (field === 'species') {
+            for (const g of BIRD_SPECIES_GROUPS) {
+              const it = g.items.find(x => x.name === rawVal);
+              if (it) { foundEmoji = it.emoji; break; }
+            }
+          } else {
+            for (const key of Object.keys(BIRD_MUTATIONS_BY_SPECIES)) {
+              for (const g of BIRD_MUTATIONS_BY_SPECIES[key]) {
+                const it = g.items.find(x => x.name === rawVal);
+                if (it) { foundEmoji = it.emoji; break; }
+              }
+              if (foundEmoji !== '🎨') break;
+            }
+          }
+
+          valSpan.innerHTML = `
+            <span class="combo-icon">${foundEmoji}</span>
+            <span class="combo-title">${escapeHtml(rawVal)}</span>
+          `;
+        }
+
+        function setValue(val) {
+          input.value = val || '';
+          syncUI();
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+
+          // If this is species input, notify any dependent mutation dropdown
+          if (field === 'species') {
+            const relCombo = container.id === 'f_species_combo' ? document.getElementById('f_mutation_combo') : document.getElementById('c_mutation_combo');
+            if (relCombo && relCombo._updateContext) {
+              relCombo._updateContext();
+            }
+          }
+        }
+
+        function getActiveGroups() {
+          if (field === 'species') {
+            return BIRD_SPECIES_GROUPS;
+          }
+
+          let speciesVal = '';
+          if (speciesInputId) {
+            const spEl = document.getElementById(speciesInputId);
+            if (spEl) speciesVal = spEl.value.trim();
+          }
+          const key = getSpeciesKey(speciesVal);
+
+          if (key !== 'general' && !showAllMutations) {
+            contextBanner.style.display = 'flex';
+            contextTitle.textContent = `⚡ طفرات مقترحة لـ: ${speciesVal}`;
+            const recGroups = BIRD_MUTATIONS_BY_SPECIES[key] || [];
+            const genGroups = BIRD_MUTATIONS_BY_SPECIES.general || [];
+            return [...recGroups, ...genGroups];
+          } else {
+            if (key !== 'general') {
+              contextBanner.style.display = 'flex';
+              contextTitle.textContent = `🌐 عرض كل الطفرات (لـ ${speciesVal})`;
+            } else {
+              contextBanner.style.display = 'none';
+            }
+            const all = [];
+            if (BIRD_MUTATIONS_BY_SPECIES.general) all.push(...BIRD_MUTATIONS_BY_SPECIES.general);
+            for (const k of Object.keys(BIRD_MUTATIONS_BY_SPECIES)) {
+              if (k !== 'general') all.push(...BIRD_MUTATIONS_BY_SPECIES[k]);
+            }
+            return all;
+          }
+        }
+
+        function renderList(searchQuery) {
+          listEl.innerHTML = '';
+          const q = normAr(searchQuery);
+          const rawQ = searchQuery ? searchQuery.trim() : '';
+          const currentVal = input.value ? input.value.trim() : '';
+
+          if (rawQ) {
+            manualAddWrap.style.display = 'block';
+            manualAddWrap.innerHTML = `
+              <div class="smart-combo-manual-item">
+                <span style="font-size:16px;">➕</span>
+                <div style="min-width:0; flex:1;">
+                  <div style="font-size:12.5px;">استخدام "<strong>${escapeHtml(rawQ)}</strong>"</div>
+                  <div style="font-size:10px; opacity:0.8;">إدخال يدوي مخصص</div>
+                </div>
+              </div>
+            `;
+            const manualItem = manualAddWrap.querySelector('.smart-combo-manual-item');
+            manualItem.addEventListener('click', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setValue(rawQ);
+              closeAllSmartCombos();
+            });
+          } else {
+            manualAddWrap.style.display = 'none';
+          }
+
+          const groups = getActiveGroups();
+          let totalMatches = 0;
+
+          groups.forEach(g => {
+            const matchedItems = g.items.filter(item => {
+              if (!q) return true;
+              return normAr(item.name).includes(q) || normAr(item.sub || '').includes(q);
+            });
+
+            if (matchedItems.length === 0) return;
+            totalMatches += matchedItems.length;
+
+            const header = document.createElement('div');
+            header.className = 'smart-combo-group-header';
+            header.innerHTML = `<span>${g.icon || '📌'}</span><span>${escapeHtml(g.group)}</span>`;
+            listEl.appendChild(header);
+
+            matchedItems.forEach(item => {
+              const itemEl = document.createElement('div');
+              const isSelected = item.name === currentVal;
+              itemEl.className = 'smart-combo-item' + (isSelected ? ' selected' : '');
+              itemEl.setAttribute('role', 'option');
+              itemEl.setAttribute('data-value', item.name);
+
+              itemEl.innerHTML = `
+                <div class="smart-combo-item-left">
+                  <span class="smart-combo-item-emoji">${item.emoji || '🕊️'}</span>
+                  <div class="smart-combo-item-texts">
+                    <span class="smart-combo-item-title">${escapeHtml(item.name)}</span>
+                    ${item.sub ? `<span class="smart-combo-item-sub">${escapeHtml(item.sub)}</span>` : ''}
+                  </div>
+                </div>
+                <span class="smart-combo-item-check">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+              `;
+
+              itemEl.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setValue(item.name);
+                closeAllSmartCombos();
+              });
+
+              listEl.appendChild(itemEl);
+            });
+          });
+
+          if (totalMatches === 0) {
+            const emptyNotice = document.createElement('div');
+            emptyNotice.style.padding = '14px 10px';
+            emptyNotice.style.textAlign = 'center';
+            emptyNotice.style.fontSize = '12.5px';
+            emptyNotice.style.color = 'var(--ink-soft)';
+            emptyNotice.innerHTML = `
+              <div>لم يتم العثور على نتيجة مطابقة</div>
+              <div style="font-size:11px; margin-top:4px;">اضغط على خيار الإضافة اليدوية بالأعلى لاعتماده 👆</div>
+            `;
+            listEl.appendChild(emptyNotice);
+          }
+        }
+
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          if (e.target.closest('.smart-combo-clear')) return;
+
+          const isOpen = container.classList.contains('open');
+          closeAllCustomSelects();
+          closeAllSmartCombos();
+
+          if (!isOpen) {
+            const rect = trigger.getBoundingClientRect();
+            if (window.innerHeight - rect.bottom < 260 && rect.top > 260) {
+              container.classList.add('dropup');
+            } else {
+              container.classList.remove('dropup');
+            }
+
+            container.classList.add('open');
+            trigger.setAttribute('aria-expanded', 'true');
+            searchInput.value = '';
+            renderList('');
+            setTimeout(() => {
+              searchInput.focus();
+            }, 60);
+          }
+        });
+
+        clearBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setValue('');
+        });
+
+        searchInput.addEventListener('input', () => {
+          renderList(searchInput.value);
+        });
+
+        searchInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            e.stopPropagation();
+            const rawQ = searchInput.value.trim();
+            if (!rawQ) return;
+            const firstOpt = listEl.querySelector('.smart-combo-item');
+            if (firstOpt && normAr(firstOpt.getAttribute('data-value')).includes(normAr(rawQ))) {
+              setValue(firstOpt.getAttribute('data-value'));
+            } else {
+              setValue(rawQ);
+            }
+            closeAllSmartCombos();
+          } else if (e.key === 'Escape') {
+            closeAllSmartCombos();
+          }
+        });
+
+        manualBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          searchInput.placeholder = '✏️ اكتب الاسم المخصص هنا واضغط Enter...';
+          searchInput.focus();
+          searchInput.select();
+        });
+
+        // Safe property override on input element
+        const origDesc = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+        Object.defineProperty(input, 'value', {
+          get() {
+            return origDesc.get.call(this);
+          },
+          set(v) {
+            origDesc.set.call(this, v);
+            syncUI();
+          },
+          configurable: true
+        });
+
+        container._syncUI = syncUI;
+        container._updateContext = () => {
+          if (container.classList.contains('open')) {
+            renderList(searchInput.value);
+          }
+        };
+
+        syncUI();
+      }
+
+      function initAllSmartCombos() {
+        document.querySelectorAll('.smart-combo-container').forEach(initSmartCombo);
+      }
+
+      function syncAllSmartCombos() {
+        document.querySelectorAll('.smart-combo-container').forEach(c => {
+          if (c._syncUI) c._syncUI();
+        });
+      }
 
       // Expose globally
       window.BN = window.BN || {};
       BN.initCustomSelect = initCustomSelect;
       BN.initAllCustomSelects = initAllCustomSelects;
+      BN.initAllSmartCombos = initAllSmartCombos;
+      BN.syncAllSmartCombos = syncAllSmartCombos;
 
       // ---------- Pair Modal UI & Handling ----------
       const pairOverlay = document.getElementById('pairOverlay');
@@ -5134,6 +6239,7 @@
         document.getElementById('f_cage').value = pair ? (pair.cage || '') : '';
         document.getElementById('f_species').value = pair ? (pair.species || '') : '';
         document.getElementById('f_mutation').value = pair ? (pair.mutation || '') : '';
+        syncAllSmartCombos();
         const statusSelect = document.getElementById('f_status');
         statusSelect.value = pair ? (pair.status || 'ready') : 'ready';
         statusSelect.dispatchEvent(new Event('change', { bubbles: true }));
@@ -5157,6 +6263,7 @@
       function closePairModal() {
         closeModal(pairOverlay);
         closeAllCustomSelects();
+        closeAllSmartCombos();
         editingPairId = null;
         pendingPhoto = null;
         pendingPhotoFile = null;
@@ -5403,6 +6510,48 @@
         }
       }
 
+      function updateChickParentMutationHint(selectedPairId) {
+        const hintBox = document.getElementById('c_parent_mutation_hint');
+        if (!hintBox) return;
+        const p = state.pairs.find(x => x.id === selectedPairId);
+        if (p && p.mutation) {
+          hintBox.style.display = 'block';
+          hintBox.innerHTML = `
+            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(105,121,58,0.12); border:1px solid var(--accent); padding:4px 9px; border-radius:7px; font-size:11.5px; color:var(--accent); font-weight:700; cursor:pointer;" title="اضغط لتطبيق نفس طفرة الأبوين على الزغلول">
+              <span>💡 طفرة الأبوين:</span>
+              <span style="color:var(--ink); text-decoration:underline;">${escapeHtml(p.mutation)}</span>
+              <span style="font-size:10px; opacity:0.8;">(اضغط للتطبيق)</span>
+            </div>
+          `;
+          hintBox.onclick = () => {
+            const cMutation = document.getElementById('c_mutation');
+            if (cMutation) {
+              cMutation.value = p.mutation;
+              cMutation.dispatchEvent(new Event('change', { bubbles: true }));
+              syncAllSmartCombos();
+            }
+          };
+        } else {
+          hintBox.style.display = 'none';
+          hintBox.innerHTML = '';
+        }
+      }
+
+      const chickParentSelect = document.getElementById('c_pairId');
+      if (chickParentSelect) {
+        chickParentSelect.addEventListener('change', () => {
+          const selectedPairId = chickParentSelect.value;
+          const p = state.pairs.find(x => x.id === selectedPairId);
+          const cSpecies = document.getElementById('c_species');
+          if (p && p.species && cSpecies && !cSpecies.value) {
+            cSpecies.value = p.species;
+            cSpecies.dispatchEvent(new Event('change', { bubbles: true }));
+            syncAllSmartCombos();
+          }
+          updateChickParentMutationHint(selectedPairId);
+        });
+      }
+
       function openChickModal(chick) {
         editingChickId = chick ? chick.id : null;
         pendingChickPhoto = chick ? (chick.photo || null) : null;
@@ -5419,6 +6568,8 @@
         document.getElementById('c_cage').value = chick ? (chick.cage || '') : '';
         document.getElementById('c_species').value = chick ? (chick.species || '') : '';
         document.getElementById('c_mutation').value = chick ? (chick.mutation || '') : '';
+        syncAllSmartCombos();
+        updateChickParentMutationHint(chick ? (chick.pairId || '') : '');
 
         const genderSelect = document.getElementById('c_gender');
         genderSelect.value = chick ? (chick.gender || 'unknown') : 'unknown';
@@ -5441,6 +6592,7 @@
       function closeChickModal() {
         closeModal(chickOverlay);
         closeAllCustomSelects();
+        closeAllSmartCombos();
         editingChickId = null;
         pendingChickPhoto = null;
         pendingChickPhotoFile = null;
@@ -6560,6 +7712,7 @@
 
       // ---------- Init ----------
       initAllCustomSelects();
+      initAllSmartCombos();
       loadLocal();
       render();
       initSupabase(false).finally(() => {
